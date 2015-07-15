@@ -1,26 +1,27 @@
 .body{
 	width: 100%;
 	height: 100%;
-	min-width: 1230px !important;
+	min-width: 1000px !important;
 }
 .header-top{
-	margin: 0;
+	margin: auto;
+	left: 0;
+	right: 0;
 	background:Plum !important;
 	height: 60px;
 	min-height: 60px;
+	position: absolute;
 }
 .nav-box{
 	height: 60px;
 }
 .container{
-	width: 1230px !important;
+	width: 1000px !important;
 	margin: auto;
-	padding-left: 15px;
-	padding-right: 15px;
 }
 .nav-main{
 	width: auto;
-	float: left !important;
+	float: right; !important;
 }
 .nav-main-ul{
 	height: 60px;
@@ -51,11 +52,20 @@
 	background: red;
 }
 .nav-right{
-	float: right;
+	float: left;
 }
 .nav-user{
 	height: 60px;
 	position: relative !important;
 	float: left !important;
 }
-
+#imgUl{
+	width:100%;height:100%;overflow:hidden;
+}
+#imgUl>li{
+	float: left;
+	opacity: 0;
+}
+#imgUl li img{
+	height:420px; width:620px;
+}

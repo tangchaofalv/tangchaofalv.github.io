@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>唐小律的网页实验室</title>
-
+	<link rel="shortcut icon" href="./images/favicon.ico">
 	<link rel="stylesheet" type="text/css" href="./css/common.css">
 	<link rel="stylesheet" type="text/css" href="./css/indexCss.css">
 </head>
@@ -13,6 +13,11 @@
 			<div class="header-top">
 				<div class="container">
 					<div class="nav-box">
+						<div class="nav-right">
+							<nav class="nav-user">
+								some Other InFo.
+							</nav>
+						</div>
 						<nav class="nav-main">
 							<ul class="nav-main-ul">
 								<li><a href="">first</a></li>
@@ -20,27 +25,52 @@
 								<li><a href="">third</a></li>
 							</ul>
 						</nav>
-						<div class="nav-right">
-							<nav class="nav-user">
-								some Other InFo.
-							</nav>
-						</div>
 					</div>
 				</div>				
 			</div>
 		</header>
 
 		<div class="main">
-			<div style="min-width:1230px;width:100%;height:600px;background:antiquewhite;">
+			<div style="margin:0 auto; width:100%;">
+				<ul>
+					<li><img src="./images/1.jpg"  style="width:100%;"/></li>
+					<li><img src="./images/2.jpg"  style="width:100%;"/></li>
+					<li><img src="./images/3.jpg"  style="width:100%;"/></li>
+					<li><img src="./images/4.jpg"  style="width:100%;"/></li>
+					<li><img src="./images/5.jpg"  style="width:100%;"/></li>
+				</ul>
 				
 			</div>
 		</div>
 	</div>
 </body>
+<script src="./lib/commonUtil.js"></script>
+<script src="./lib/myDatas.js"></script>
 <script src="./lib/jquery-2.1.4.min.js"></script>
+
 <script type="text/javascript">
-	$(document).ready(function(){
-		console.log("load jquery success");
-	});	
+	$(function(){
+		console.log('i am ready');
+		$("div.main div ul li:gt(0)").hide();
+
+		var num = 5;
+		var currentNun = 0;
+		var timeFlag = null;
+
+		function bannerMove(){
+			timeFlag = setInterval(function(){
+				moveBanner();
+			},4000);
+		}
+		bannerMove();
+		function moveBanner(){
+			if(currentNun==num-1){
+				currentNun=-1;
+			}
+			$('div.main div ul li').eq(currentNun+1).fadeIn('slow')
+									   .siblings('li').fadeOut('slow');
+			currentNun++;
+		}
+	});
 </script>
 </html>
