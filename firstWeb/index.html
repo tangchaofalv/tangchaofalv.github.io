@@ -13,16 +13,16 @@
 			<div class="header-top">
 				<div class="container">
 					<div class="nav-box">
-						<div class="nav-right">
-							<nav class="nav-user">
-								some Other InFo.
+						<div class="nav-left">
+							<nav class="nav-logo">
+								Head Logo.
 							</nav>
 						</div>
 						<nav class="nav-main">
 							<ul class="nav-main-ul">
-								<li><a href="">first</a></li>
-								<li><a href="">second</a></li>
-								<li><a href="">third</a></li>
+								<li><a href="">Gallery</a></li>
+								<li><a href="">Videos</a></li>
+								<li><a href="">about.</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -31,16 +31,19 @@
 		</header>
 
 		<div class="main">
-			<div style="margin:0 auto; width:100%;">
-				<ul>
-					<li><img src="./images/1.jpg"  style="width:100%;"/></li>
-					<li><img src="./images/2.jpg"  style="width:100%;"/></li>
-					<li><img src="./images/3.jpg"  style="width:100%;"/></li>
-					<li><img src="./images/4.jpg"  style="width:100%;"/></li>
-					<li><img src="./images/5.jpg"  style="width:100%;"/></li>
-				</ul>
+			<div style="margin:0 auto; width:100%;min-width:100px;" id="elem">
 				
 			</div>
+		</div>
+		<footer>
+			<div>
+				<p>
+					something text here.
+				</p>
+			</div>
+		</footer>
+		<div id="fd">
+					123
 		</div>
 	</div>
 </body>
@@ -49,7 +52,7 @@
 <script src="./lib/jquery-2.1.4.min.js"></script>
 
 <script type="text/javascript">
-	$(function(){
+	/*$(function(){
 		console.log('i am ready');
 		$("div.main div ul li:gt(0)").hide();
 
@@ -67,10 +70,36 @@
 			if(currentNun==num-1){
 				currentNun=-1;
 			}
-			$('div.main div ul li').eq(currentNun+1).fadeIn('slow')
-									   .siblings('li').fadeOut('slow');
+			$('div.main div ul li').eq(currentNun+1).fadeIn('slow').siblings('li').fadeOut('slow');
 			currentNun++;
 		}
+	});*/
+	$(function(){
+		setTimeout(function(){
+			rollBg();
+		},2000);
+
+
+		function rollBg(){
+			var indexNum = 1;
+			var bgName = './images/'+(++indexNum)+'.jpg';
+			$('#elem').fadeTo('slow', 0, function(){
+			 	$(this).css('background-image', 'url('+bgName+')');
+			}).fadeTo('slow', 1);
+
+			setInterval(function(){
+				if(indexNum!=5){
+					bgName = './images/'+(++indexNum)+'.jpg';
+				}else{
+					indexNum = 0;
+					bgName = './images/'+(++indexNum)+'.jpg';
+				}
+				$('#elem').fadeTo('slow', 0, function(){
+				 	$(this).css('background-image', 'url('+bgName+')');
+				}).fadeTo('slow', 1);
+			},4000);
+		}
+
 	});
 </script>
 </html>
