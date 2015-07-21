@@ -38,7 +38,10 @@
 		<footer>
 			<div>
 				<p>
-					something text here.
+					CopyRight:tanglv
+					<span id="timespan">
+						09:17
+					</span>
 				</p>
 			</div>
 		</footer>
@@ -75,8 +78,15 @@
 		}
 	});*/
 	$(function(){
+
+		setInterval(function(){
+			var clock = new Date();
+			var strClock = clock.getHours()+":"+clock.getMinutes()+":"+clock.getSeconds();
+			$('#timespan').text(strClock);
+		},1000);
+
 		setTimeout(function(){
-			rollBg();
+			//rollBg();
 		},2000);
 
 
@@ -94,6 +104,44 @@
 					indexNum = 0;
 					bgName = './images/'+(++indexNum)+'.jpg';
 				}
+				$('#elem').fadeTo('slow', 0, function(){
+				 	$(this).css('background-image', 'url('+bgName+')');
+				}).fadeTo('slow', 1);
+			},4000);
+		}
+
+		var bgImgArray = new Array();
+		var imgIndex = 1;
+		loadBGImgs(imgIndex,bgImgArray);
+
+		function loadBGImgs(imgIndexP,bgImgArray){
+			if(bgImgArray.length<5){
+				var tmpImg = new Image();
+				tmpImg.src = './images/'+imgIndexP+'.jpg';
+
+				tmpImg.onload = function(){
+					imgIndexP++;
+					bgImgArray.push(tmpImg);
+					loadBGImgs(imgIndexP,bgImgArray);
+				}
+			}else{
+				
+				rollBg2();
+			}
+		}
+
+		function rollBg2(){
+			var indexNum = 0;
+
+			setInterval(function(){
+				if(indexNum!=4){
+					bgName = bgImgArray[indexNum].src;
+				}else{
+					indexNum = 0;
+					bgName = bgImgArray[indexNum].src;
+				}
+				indexNum++;
+				
 				$('#elem').fadeTo('slow', 0, function(){
 				 	$(this).css('background-image', 'url('+bgName+')');
 				}).fadeTo('slow', 1);
