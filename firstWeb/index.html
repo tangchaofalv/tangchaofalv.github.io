@@ -112,21 +112,23 @@
 
 		var bgImgArray = new Array();
 		var imgIndex = 1;
+		var rollFlag = true;
 		loadBGImgs(imgIndex,bgImgArray);
 
 		function loadBGImgs(imgIndexP,bgImgArray){
-			if(bgImgArray.length<5){
+			if(bgImgArray.length<=5){
 				var tmpImg = new Image();
 				tmpImg.src = './images/'+imgIndexP+'.jpg';
 
 				tmpImg.onload = function(){
 					imgIndexP++;
 					bgImgArray.push(tmpImg);
+					if(bgImgArray.length>=2 && rollFlag){
+						rollBg2();
+						rollFlag = false;
+					}
 					loadBGImgs(imgIndexP,bgImgArray);
 				}
-			}else{
-				
-				rollBg2();
 			}
 		}
 
@@ -134,7 +136,7 @@
 			var indexNum = 0;
 
 			setInterval(function(){
-				if(indexNum!=4){
+				if(indexNum!=(bgImgArray.length-1)){
 					bgName = bgImgArray[indexNum].src;
 				}else{
 					indexNum = 0;
