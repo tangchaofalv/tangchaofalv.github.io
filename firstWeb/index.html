@@ -117,7 +117,7 @@
 		loadBGImgs(imgIndex,bgImgArray);
 
 		function loadBGImgs(imgIndexP,bgImgArray){
-			while(bgImgArray.length<5){
+			while(bgImgArray.length<=5){
 				var tmpImg = new Image();
 				tmpImg.src = './images/'+imgIndexP+'.jpg';
 				bgImgArray.push(tmpImg);
@@ -128,7 +128,7 @@
 						rollBg2();
 					}
 				}
-				imgIndexP++;
+				++imgIndexP;
 			}
 		}
 
