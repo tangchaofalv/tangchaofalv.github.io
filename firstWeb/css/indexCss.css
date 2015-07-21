@@ -32,7 +32,7 @@
 /*导航菜单 start */
 .nav-main{
 	width: auto;
-	float: right; !important;
+	float: right !important;
 }
 .nav-main-ul{
 	height: 60px;

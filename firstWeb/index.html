@@ -112,23 +112,23 @@
 
 		var bgImgArray = new Array();
 		var imgIndex = 1;
+		var currentSize = 0;
 		var rollFlag = true;
 		loadBGImgs(imgIndex,bgImgArray);
 
 		function loadBGImgs(imgIndexP,bgImgArray){
-			if(bgImgArray.length<=5){
+			while(bgImgArray.length<5){
 				var tmpImg = new Image();
 				tmpImg.src = './images/'+imgIndexP+'.jpg';
-
+				bgImgArray.push(tmpImg);
 				tmpImg.onload = function(){
-					imgIndexP++;
-					bgImgArray.push(tmpImg);
-					if(bgImgArray.length>=2 && rollFlag){
-						rollBg2();
+					currentSize++;
+					if(rollFlag && currentSize==2){
 						rollFlag = false;
+						rollBg2();
 					}
-					loadBGImgs(imgIndexP,bgImgArray);
 				}
+				imgIndexP++;
 			}
 		}
 
