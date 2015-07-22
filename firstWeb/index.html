@@ -111,43 +111,52 @@
 		}
 
 		var bgImgArray = new Array();
-		var imgIndex = 1;
-		var currentSize = 0;
-		var rollFlag = true;
-		loadBGImgs(imgIndex,bgImgArray);
+		var indexRollImgs = getDataById('indexRollImg');
+		loadBGImgs(indexRollImgs['url'],indexRollImgs['photos']);
 
-		function loadBGImgs(imgIndexP,bgImgArray){
-			while(bgImgArray.length<=5){
+		function loadBGImgs(url,imgs){
+			for(var i in imgs){
 				var tmpImg = new Image();
-				tmpImg.src = './images/'+imgIndexP+'.jpg';
-				bgImgArray.push(tmpImg);
+				tmpImg.src = url + imgs[i]['imgName'];
 				tmpImg.onload = function(){
-					currentSize++;
-					if(rollFlag && currentSize==2){
-						rollFlag = false;
+					bgImgArray.push(this);
+					if(bgImgArray.length==2){
 						rollBg2();
 					}
 				}
-				++imgIndexP;
 			}
+
 		}
 
 		function rollBg2(){
 			var indexNum = 0;
+			$('#elem').fadeTo('slow', 0, function(){
+				 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
+					indexNum++;
+			}).fadeTo('slow', 1);
+			
 
 			setInterval(function(){
-				if(indexNum!=(bgImgArray.length-1)){
+				if(indexNum!=(bgImgArray.length)){
 					bgName = bgImgArray[indexNum].src;
 				}else{
 					indexNum = 0;
 					bgName = bgImgArray[indexNum].src;
 				}
 				indexNum++;
-				
+				//console.log(bgName);
 				$('#elem').fadeTo('slow', 0, function(){
 				 	$(this).css('background-image', 'url('+bgName+')');
 				}).fadeTo('slow', 1);
 			},4000);
+		}
+
+		function getDataById(dataId){
+			for(var i in data_myPhotos){
+				if(data_myPhotos[i]['id']==dataId){
+					return data_myPhotos[i];
+				}
+			} 
 		}
 
 	});

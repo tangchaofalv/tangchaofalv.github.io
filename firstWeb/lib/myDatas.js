@@ -8,11 +8,11 @@ var data_myPhotos = [
 		'title':'',
 		'type':'',
 		'photos':[
-			{'imgName':'first.jpg','title':'','description':'','width':'','height':''},
-			{'imgName':'second.jpg','title':'','description':'','width':'','height':''},
-			{'imgName':'third.jpg','title':'','description':'','width':'','height':''},
-			{'imgName':'fourth.jpg','title':'','description':'','width':'','height':''},
-			{'imgName':'fifth.jpg','title':'','description':'','width':'','height':''}
+			{'imgName':'1.jpg','title':'','description':'','width':'','height':''},
+			{'imgName':'2.jpg','title':'','description':'','width':'','height':''},
+			{'imgName':'3.jpg','title':'','description':'','width':'','height':''},
+			{'imgName':'4.jpg','title':'','description':'','width':'','height':''},
+			{'imgName':'5.jpg','title':'','description':'','width':'','height':''}
 		]
 	}
 ];
