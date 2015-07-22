@@ -112,27 +112,23 @@
 
 		var bgImgArray = new Array();
 		var imgIndex = 1;
+		var currentSize = 0;
+		var rollFlag = true;
 		loadBGImgs(imgIndex,bgImgArray);
 
 		function loadBGImgs(imgIndexP,bgImgArray){
-			if(bgImgArray.length<=5){
+			while(bgImgArray.length<=5){
 				var tmpImg = new Image();
 				tmpImg.src = './images/'+imgIndexP+'.jpg';
-
+				bgImgArray.push(tmpImg);
 				tmpImg.onload = function(){
-					imgIndexP++;
-					bgImgArray.push(tmpImg);
-					setTimeout(function(){
-						$('#elem').fadeTo('slow', 0, function(){
-							console.log('change');
-						 	$(this).css('background-image', 'url('+tmpImg.src+')');
-						}).fadeTo('slow', 1);
-					},2000);
-					console.log('load');
-					loadBGImgs(imgIndexP,bgImgArray);
+					currentSize++;
+					if(rollFlag && currentSize==2){
+						rollFlag = false;
+						rollBg2();
+					}
 				}
-			}else{
-				rollBg2();
+				++imgIndexP;
 			}
 		}
 
