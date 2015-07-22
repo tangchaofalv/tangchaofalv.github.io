@@ -112,7 +112,6 @@
 
 		var bgImgArray = new Array();
 		var imgIndex = 1;
-		var rollFlag = true;
 		loadBGImgs(imgIndex,bgImgArray);
 
 		function loadBGImgs(imgIndexP,bgImgArray){
@@ -123,12 +122,17 @@
 				tmpImg.onload = function(){
 					imgIndexP++;
 					bgImgArray.push(tmpImg);
-					if(bgImgArray.length>=2 && rollFlag){
-						rollBg2();
-						rollFlag = false;
-					}
+					setTimeout(function(){
+						$('#elem').fadeTo('slow', 0, function(){
+							console.log('change');
+						 	$(this).css('background-image', 'url('+tmpImg.src+')');
+						}).fadeTo('slow', 1);
+					},2000);
+					console.log('load');
 					loadBGImgs(imgIndexP,bgImgArray);
 				}
+			}else{
+				rollBg2();
 			}
 		}
 
