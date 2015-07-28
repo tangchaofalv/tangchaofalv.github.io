@@ -1,6 +1,6 @@
 /*动态加载 js or css*/
 var dynamicLoading = {
-	'css':function(path){
+	'css':function(path,callback){
 		if(!path || path.length === 0){
 			throw new Error('argument "path" is required.');
 		}
@@ -10,8 +10,13 @@ var dynamicLoading = {
 		link.rel = 'stylesheet';
 		link.type = 'text/css';
 		head.appendChild(link);
+		link.onload=link.onreadystatechange=function(){
+			if(!this.readyState || this.readyState=='loaded' || this.readyState=='complete'){
+				if(!!callback)callback();
+			}
+		}
 	},
-	'js':function(path){
+	'js':function(path,callback){
 		if(!path || path.length === 0){
 			throw new Error('argument "path" is required.');
 		}
@@ -20,5 +25,10 @@ var dynamicLoading = {
 		script.src = path;
 		script.type = 'text/javascript';
 		head.appendChild(script);
+		script.onload=script.onreadystatechange=function(){
+			if(!this.readyState || this.readyState=='loaded' || this.readyState=='complete'){
+				if(!!callback)callback();
+			}
+		}
 	}
 };

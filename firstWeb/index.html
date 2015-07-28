@@ -4,11 +4,13 @@
 	<meta charset="UTF-8">
 	<title>唐小律的网页实验室</title>
 	<link rel="shortcut icon" href="./images/favicon.ico">
-	<link rel="stylesheet" type="text/css" href="./css/common.css">
-	<link rel="stylesheet" type="text/css" href="./css/indexCss.css">
+	<!-- <link rel="stylesheet" type="text/css" href="./css/common.css">
+	<link rel="stylesheet" type="text/css" href="./css/indexCss.css"> -->
+	<script src="./lib/importCss.js"></script>
 </head>
 <body>
 	<div class="body">
+		<div class='loadingProcess'></div>
 		<header>
 			<div class="header-top">
 				<div class="container">
@@ -45,120 +47,14 @@
 				</p>
 			</div>
 		</footer>
-		<!-- <div id="fd">
-			<img lowsrc="./images/1_low.jpg" src="./images/1.jpg" width='400' height='400'> 
-		</div> -->
+		
 	</div>
 </body>
-<script src="./lib/commonUtil.js"></script>
+<!-- 
 <script src="./lib/myDatas.js"></script>
 <script src="./lib/jquery-2.1.4.min.js"></script>
+<script src="./lib/commonUtil.js"></script>-->
 
-<script type="text/javascript">
-	/*$(function(){
-		console.log('i am ready');
-		$("div.main div ul li:gt(0)").hide();
+<script src="./lib/indexPageInit.js"></script> 
 
-		var num = 5;
-		var currentNun = 0;
-		var timeFlag = null;
-
-		function bannerMove(){
-			timeFlag = setInterval(function(){
-				moveBanner();
-			},4000);
-		}
-		bannerMove();
-		function moveBanner(){
-			if(currentNun==num-1){
-				currentNun=-1;
-			}
-			$('div.main div ul li').eq(currentNun+1).fadeIn('slow').siblings('li').fadeOut('slow');
-			currentNun++;
-		}
-	});*/
-	$(function(){
-
-		setInterval(function(){
-			var clock = new Date();
-			var strClock = clock.getHours()+":"+clock.getMinutes()+":"+clock.getSeconds();
-			$('#timespan').text(strClock);
-		},1000);
-
-		setTimeout(function(){
-			//rollBg();
-		},2000);
-
-
-		function rollBg(){
-			var indexNum = 1;
-			var bgName = './images/'+(++indexNum)+'.jpg';
-			$('#elem').fadeTo('slow', 0, function(){
-			 	$(this).css('background-image', 'url('+bgName+')');
-			}).fadeTo('slow', 1);
-
-			setInterval(function(){
-				if(indexNum!=5){
-					bgName = './images/'+(++indexNum)+'.jpg';
-				}else{
-					indexNum = 0;
-					bgName = './images/'+(++indexNum)+'.jpg';
-				}
-				$('#elem').fadeTo('slow', 0, function(){
-				 	$(this).css('background-image', 'url('+bgName+')');
-				}).fadeTo('slow', 1);
-			},4000);
-		}
-
-		var bgImgArray = new Array();
-		var indexRollImgs = getDataById('indexRollImg');
-		loadBGImgs(indexRollImgs['url'],indexRollImgs['photos']);
-
-		function loadBGImgs(url,imgs){
-			for(var i in imgs){
-				var tmpImg = new Image();
-				tmpImg.src = url + imgs[i]['imgName'];
-				tmpImg.onload = function(){
-					bgImgArray.push(this);
-					if(bgImgArray.length==2){
-						rollBg2();
-					}
-				}
-			}
-
-		}
-
-		function rollBg2(){
-			var indexNum = 0;
-			$('#elem').fadeTo('slow', 0, function(){
-				 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
-					indexNum++;
-			}).fadeTo('slow', 1);
-			
-
-			setInterval(function(){
-				if(indexNum!=(bgImgArray.length)){
-					bgName = bgImgArray[indexNum].src;
-				}else{
-					indexNum = 0;
-					bgName = bgImgArray[indexNum].src;
-				}
-				indexNum++;
-				//console.log(bgName);
-				$('#elem').fadeTo('slow', 0, function(){
-				 	$(this).css('background-image', 'url('+bgName+')');
-				}).fadeTo('slow', 1);
-			},4000);
-		}
-
-		function getDataById(dataId){
-			for(var i in data_myPhotos){
-				if(data_myPhotos[i]['id']==dataId){
-					return data_myPhotos[i];
-				}
-			} 
-		}
-
-	});
-</script>
 </html>
