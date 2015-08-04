@@ -94,5 +94,16 @@ var dynamicLoading = {
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
 		//pageInit();
+		console.log("i am here");
+		// $({property:0}).animate({property:100},{
+		// 	duration:3000,
+		// 	step:function(){
+		// 		var percentage = Math.round(this.property);
+		// 		$('#loadingProcess').css('width',percentage+'%');
+		// 		if(percentage == 100){
+		// 			$('#loadingProcess').addClass("done");
+		// 		}
+		// 	}
+		// });
 	});
 });

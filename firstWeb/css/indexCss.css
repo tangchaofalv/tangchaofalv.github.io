@@ -160,14 +160,34 @@ footer div p {
 .loadingProcess{
 	height: 2px;
 	background: red;
-	-webkit-animation:test 3s;
+	transition:opacity 500ms linear;
+	position: fixed;
+	/*-webkit-animation:test 3s;*/
 }
-@-webkit-keyframes test {
-	0% {
-		width: 0;
+.loadingProcess.done{
+	opacity: 0;
+}
+#loadingProcess span{
+	position: absolute;
+	height: 2px;
+	-webkit-box-shadow:1px 0 6px 1px  #b91f1f;
+	-webkit-border-radius:100%;
+	opacity: 1;
+	width: 100px;
+	right: -10px;
+	/*-webkit-animation:pulse 2s ease-out 0s infinite;*/
+}
+
+
+@-webkit-keyframes pulse {
+	30% {
+		opacity: 1
+	}
+	60% {
+		opacity: 0
 	}
 	100% {
-		width: 100%;
+		width: 1;
 	}
 
 }
