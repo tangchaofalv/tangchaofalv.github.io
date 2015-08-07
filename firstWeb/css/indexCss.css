@@ -71,8 +71,8 @@
 	}
 }
 .nav-main-ul>li a:hover:after{
-	-webkit-animation:boom 1s ease;
-	animation:boom 1s ease;
+	-webkit-animation:boom 1s ease infinite alternate;
+	animation:boom 1s ease infinite alternate;
 }
 
 .nav-main-ul>li a:link,.nav-main-ul>li a:visited{
