@@ -127,7 +127,7 @@ div.main {
 	/*height: 720px;*/
 }
 
-div.main div{
+#elem{
 	height: 100vh;
 	background-color: black;
 	/*background-image: url(../images/1.jpg);*/
@@ -137,7 +137,7 @@ div.main div{
 }
 
 /*图片滚动*/
-div.main div ul li img {
+#elem ul li img {
 	display:block;
 	width:100%;
 	min-width: 1000px;
@@ -201,4 +201,10 @@ footer div p {
 		width: 1;
 	}
 
+}
+
+.gridDiv{
+	width: 200px;
+	height: 200px;
+	background: red;
 }

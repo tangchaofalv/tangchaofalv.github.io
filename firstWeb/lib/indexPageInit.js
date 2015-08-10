@@ -93,7 +93,7 @@ var dynamicLoading = {
 
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
-		//pageInit();
+		pageInit();
 		
 		// $({property:0}).animate({property:100},{
 		// 	duration:3000,
@@ -105,5 +105,17 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 		// 		}
 		// 	}
 		// });
+		$("#gallery").click(function(){
+			$("#elem").css("background-image","linear-gradient(to top left,white,black)");
+			// $("#elem").css("background-image","url(./images/10.jpg)");
+			getGridList();
+		});
+
 	});
 });
+
+function getGridList(){
+	var gridDiv = document.createElement("div");
+	gridDiv.className = "gridDiv";
+	document.getElementById("elem").appendChild(gridDiv);
+}
