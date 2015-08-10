@@ -94,7 +94,7 @@ var dynamicLoading = {
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
 		//pageInit();
-		console.log("i am here");
+		
 		// $({property:0}).animate({property:100},{
 		// 	duration:3000,
 		// 	step:function(){
