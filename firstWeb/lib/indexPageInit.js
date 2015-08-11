@@ -7,54 +7,53 @@ function pageInit(){
 			$('#timespan').text(strClock);
 	},1000);
 
-	var bgImgArray = new Array();
-	var indexRollImgs = getDataById('indexRollImg');
-	loadBGImgs(indexRollImgs['url'],indexRollImgs['photos']);
+	
+}
 
-	function loadBGImgs(url,imgs){
-		for(var i in imgs){
-			var tmpImg = new Image();
-			tmpImg.src = url + imgs[i]['imgName'];
-			tmpImg.onload = function(){
-				bgImgArray.push(this);
-				if(bgImgArray.length==2){
-					rollBg();
-				}
+function loadBGImgs(bgImgArray,url,imgs,callback){
+	for(var i in imgs){
+		var tmpImg = new Image();
+		tmpImg.src = url + imgs[i]['imgName'];
+		tmpImg.onload = function(){
+			bgImgArray.push(this);
+			if(bgImgArray.length==2){
+				callback(rollBg(bgImgArray));
 			}
 		}
-
 	}
+}
 
-	function rollBg(){
-		var indexNum = 0;
-		$('#elem').fadeTo('slow', 0, function(){
-			 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
-				indexNum++;
-		}).fadeTo('slow', 1);
-		
-
-		setInterval(function(){
-			if(indexNum!=(bgImgArray.length)){
-				bgName = bgImgArray[indexNum].src;
-			}else{
-				indexNum = 0;
-				bgName = bgImgArray[indexNum].src;
-			}
+function rollBg(bgImgArray){
+	var indexNum = 0;
+	$('#elem').fadeTo('slow', 0, function(){
+		 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
 			indexNum++;
-			//console.log(bgName);
-			$('#elem').fadeTo('slow', 0, function(){
-			 	$(this).css('background-image', 'url('+bgName+')');
-			}).fadeTo('slow', 1);
-		},4000);
-	}
+	}).fadeTo('slow', 1);
+	
 
-	function getDataById(dataId){
-		for(var i in data_myPhotos){
-			if(data_myPhotos[i]['id']==dataId){
-				return data_myPhotos[i];
-			}
-		} 
-	}
+	var rollTrigger = setInterval(function(){
+		if(indexNum!=(bgImgArray.length)){
+			bgName = bgImgArray[indexNum].src;
+		}else{
+			indexNum = 0;
+			bgName = bgImgArray[indexNum].src;
+		}
+		indexNum++;
+		//console.log(bgName);
+		$('#elem').fadeTo('slow', 0, function(){
+		 	$(this).css('background-image', 'url('+bgName+')');
+		}).fadeTo('slow', 1);
+	},4000);
+
+	return rollTrigger;
+}
+
+function getDataById(dataId){
+	for(var i in data_myPhotos){
+		if(data_myPhotos[i]['id']==dataId){
+			return data_myPhotos[i];
+		}
+	} 
 }
 
 var dynamicLoading = {
@@ -91,6 +90,7 @@ var dynamicLoading = {
 	}
 };
 
+var myTrigger;
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
 		pageInit();
@@ -105,17 +105,81 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 		// 		}
 		// 	}
 		// });
+
+		var bgImgArray = new Array();
+		var indexRollImgs = getDataById('indexRollImg');
+		loadBGImgs(bgImgArray,indexRollImgs['url'],indexRollImgs['photos'],test);
+
 		$("#gallery").click(function(){
-			$("#elem").css("background-image","linear-gradient(to top left,white,black)");
-			// $("#elem").css("background-image","url(./images/10.jpg)");
-			getGridList();
+			clearInterval(myTrigger);
+			$("#elem").fadeTo('fast',0,function(){
+				$(this).css("background-image","linear-gradient(to top left,white,black)");
+			}).fadeTo('slow',1,function(){
+				if($("#gridDiv").length>0){
+					$("#gridDiv").css("display","block");
+				}else{
+					getGridList();
+				}
+			});
+			
+		});
+
+		$("#myLogo").click(function(){
+			clearInterval(myTrigger);
+			$("#gridDiv").fadeOut('fast',function(){
+				myTrigger = rollBg(bgImgArray);
+			});
 		});
 
 	});
 });
 
+function test(myParam){
+	console.log('callback:'+myParam);
+	myTrigger = myParam;
+}
+
 function getGridList(){
 	var gridDiv = document.createElement("div");
 	gridDiv.className = "gridDiv";
+	gridDiv.id = "gridDiv";
 	document.getElementById("elem").appendChild(gridDiv);
+
+	var gridUl = document.createElement("ul");
+
+	var myGallery = getDataById('gallery');
+	var imgArray = new Array();
+	loadGalleryImgs(imgArray,myGallery['url'],myGallery['photos']);
+	console.log(imgArray);
+
+	for(var i in imgArray){
+		var tmpLi = document.createElement("li");
+		tmpLi.className = "gridLi";
+		createImgItem(tmpLi,imgArray[i]);
+		gridUl.appendChild(tmpLi);
+	}
+	gridDiv.appendChild(gridUl);
+}
+
+function loadGalleryImgs(imgArray,url,imgs,callback){
+	for(var i in imgs){
+		var tmpImg = new Image();
+		tmpImg.src = url + imgs[i]['imgName'];
+		imgArray.push(tmpImg);
+	}
+}
+
+function createImgItem(eParentNode,imgObj){
+	var div = document.createElement("div");
+	div.style.backgroundImage = "url("+imgObj.src+")";
+	// var a = document.createElement("a");
+	// a.appendChild(imgObj);
+	// div.appendChild(a);
+
+	var p = document.createElement("p");
+	p.innerHTML = "此处展示描述文字";
+
+	eParentNode.appendChild(div);
+	eParentNode.appendChild(p);
+
 }
