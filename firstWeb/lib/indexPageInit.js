@@ -141,11 +141,12 @@ function test(myParam){
 
 function getGridList(){
 	var gridDiv = document.createElement("div");
-	gridDiv.className = "gridDiv";
+	gridDiv.className = "gridDiv clearfix";
 	gridDiv.id = "gridDiv";
 	document.getElementById("elem").appendChild(gridDiv);
 
 	var gridUl = document.createElement("ul");
+	gridUl.className = 'gridUl';
 
 	var myGallery = getDataById('gallery');
 	var imgArray = new Array();
@@ -159,6 +160,17 @@ function getGridList(){
 		gridUl.appendChild(tmpLi);
 	}
 	gridDiv.appendChild(gridUl);
+
+	var chooseSlideDiv = "<div class='navSlide'><div class='pre' id='pre'></div><div class='next' id='next'></div></div>";
+	$("#gridDiv").append(chooseSlideDiv);
+
+	$('#pre').click(function(){
+		console.log('test');
+		var index = Math.floor(Math.random()*4);
+		console.log(index);
+		console.log(getShowImg[index]());
+	});
+
 }
 
 function loadGalleryImgs(imgArray,url,imgs,callback){
@@ -182,4 +194,23 @@ function createImgItem(eParentNode,imgObj){
 	eParentNode.appendChild(div);
 	eParentNode.appendChild(p);
 
+}
+
+var getShowImg = [imgShow1,imgShow2,imgShow3,imgShow4];
+
+function imgShow1(){
+	var divFrame = "<div><div class='floatLeft'></div><div></div><div></div></div>";
+	return divFrame;
+}
+function imgShow2(){
+	var divFrame = "<div><div class='floatLeft'></div><div class='floatRight'></div></div>";
+	return divFrame;
+}
+function imgShow3(){
+	var divFrame = "<div><div></div></div>";
+	return divFrame;
+}
+function imgShow4(){
+	var divFrame = "<div><div></div><div class='floatLeft'></div><div class='floatRight'></div></div>";
+	return divFrame;
 }

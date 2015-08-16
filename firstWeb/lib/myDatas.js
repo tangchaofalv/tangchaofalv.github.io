@@ -23,14 +23,14 @@ var data_myPhotos = [
 		'photos':[
 			{'imgName':'1.jpg','title':'','description':'hello','width':'','height':''},
 			{'imgName':'2.jpg','title':'','description':'world','width':'','height':''},
-			{'imgName':'3.jpg','title':'','description':'and','width':'','height':''}
-			/*{'imgName':'4.jpg','title':'','description':'html5','width':'','height':''},
+			{'imgName':'3.jpg','title':'','description':'and','width':'','height':''},
+			{'imgName':'4.jpg','title':'','description':'html5','width':'','height':''},
 			{'imgName':'5.jpg','title':'','description':'css3','width':'','height':''},
 			{'imgName':'1.jpg','title':'','description':'hello','width':'','height':''},
 			{'imgName':'2.jpg','title':'','description':'world','width':'','height':''},
 			{'imgName':'3.jpg','title':'','description':'and','width':'','height':''},
 			{'imgName':'4.jpg','title':'','description':'html5','width':'','height':''},
-			{'imgName':'5.jpg','title':'','description':'css3','width':'','height':''}*/
+			{'imgName':'5.jpg','title':'','description':'css3','width':'','height':''}
 		]
 	}
 ];

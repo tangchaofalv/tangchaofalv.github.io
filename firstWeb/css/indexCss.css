@@ -132,11 +132,15 @@ div.main {
 
 #elem{
 	height: 100vh;
+	min-height: 400px;
 	background-color: black;
 	background-size: cover;
 	background-position: center center;
 	background-repeat: no-repeat;
-	padding-top: 70px;
+	margin:0 auto; 
+	width:100%;
+	min-width:100px;
+	position: relative;
 }
 
 
@@ -187,13 +191,17 @@ footer div p {
 .gridDiv{
 	width: 80%;
 	min-width: 800px;
-	height: 95%;
+	height: 85%;
 	background: SkyBlue;
 	margin: auto;
 	border-radius: 15px;
 	box-shadow: 1px 1px 3px 2px gray;
 	padding: 10px;
 	-webkit-animation:rightToCenter 1s ;
+	position: absolute;
+	top:70px;
+	left: 0;
+	right: 0;
 }
 
 @-webkit-keyframes rightToCenter{
@@ -205,13 +213,36 @@ footer div p {
 	}
 }
 
+.gridUl{
+	float: left;
+	height: 98%;
+	width: 85%;
+	overflow: auto;
+}
 .gridLi{
 	float: left;
 	padding: 0 5px;
+	width: 95%;
 }
 .gridLi>div{
 	width: 300px;
 	height: 350px;
 	border-radius: 10px;
 	background-size:cover; 
+}
+
+.navSlide{
+	float: right;
+    margin: 50px 50px 0 0;
+}
+.pre{
+	width: 30px;
+    height: 30px;
+    background-color: red;
+}
+.next{
+	width: 30px;
+    height: 100px;
+    background-color: red;
+    margin-top: 50px;
 }
