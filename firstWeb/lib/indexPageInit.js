@@ -135,10 +135,9 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 });
 
 function test(myParam){
-	console.log('callback:'+myParam);
 	myTrigger = myParam;
 }
-
+/*显示图列*/
 function getGridList(){
 	var gridDiv = document.createElement("div");
 	gridDiv.className = "gridDiv clearfix";
@@ -147,30 +146,47 @@ function getGridList(){
 
 	var gridUl = document.createElement("ul");
 	gridUl.className = 'gridUl';
+	gridUl.id = 'gridUl';
 
 	var myGallery = getDataById('gallery');
 	var imgArray = new Array();
-	loadGalleryImgs(imgArray,myGallery['url'],myGallery['photos']);
-	console.log(imgArray);
+	// loadGalleryImgs(imgArray,myGallery['url'],myGallery['photos']);
+	loadGalleryImgs2(imgArray,myGallery['url'],myGallery['photos']);
+	imgSize = imgArray.length;
 
-	for(var i in imgArray){
-		var tmpLi = document.createElement("li");
-		tmpLi.className = "gridLi";
-		createImgItem(tmpLi,imgArray[i]);
-		gridUl.appendChild(tmpLi);
-	}
 	gridDiv.appendChild(gridUl);
 
 	var chooseSlideDiv = "<div class='navSlide'><div class='pre' id='pre'></div><div class='next' id='next'></div></div>";
 	$("#gridDiv").append(chooseSlideDiv);
 
 	$('#pre').click(function(){
-		console.log('test');
-		var index = Math.floor(Math.random()*4);
-		console.log(index);
-		console.log(getShowImg[index]());
+		 
 	});
+	$('#next').click(function(){
+		if(currentIndex==imgSize){
+			console.log('img end:'+currentIndex+"   "+imgSize);
+			return;
+		};
+		getNewImgShow(imgArray);
+	});
+	getNewImgShow(imgArray);
 
+}
+var imgSize = 0;
+var currentIndex = 0;
+
+function getNewImgShow(imgArray){
+	var showType = Math.floor(Math.random()*4);
+	if(imgSize%currentIndex==2){
+		console.log('22222');
+		$('#gridUl').append("<li class='gridLi'>"+imgShow2(imgArray)+"</li>");
+	}else if(imgSize%currentIndex==1){
+		console.log('11111');
+		$('#gridUl').append("<li class='gridLi'>"+imgShow3(imgArray)+"</li>");
+	}else{
+		console.log('random');
+		$('#gridUl').append("<li class='gridLi'>"+getShowImg[showType](imgArray,0)+"</li>");
+	}
 }
 
 function loadGalleryImgs(imgArray,url,imgs,callback){
@@ -178,6 +194,12 @@ function loadGalleryImgs(imgArray,url,imgs,callback){
 		var tmpImg = new Image();
 		tmpImg.src = url + imgs[i]['imgName'];
 		imgArray.push(tmpImg);
+	}
+}
+function loadGalleryImgs2(imgArray,url,imgs,callback){
+	for(var i in imgs){
+		var strImg = "<img src='"+url + imgs[i]['imgName']+"' />"
+		imgArray.push(strImg);
 	}
 }
 
@@ -198,19 +220,28 @@ function createImgItem(eParentNode,imgObj){
 
 var getShowImg = [imgShow1,imgShow2,imgShow3,imgShow4];
 
-function imgShow1(){
-	var divFrame = "<div><div class='floatLeft'></div><div></div><div></div></div>";
+function imgShow1(imgArray){
+	var divFrame = "<div><div class='floatLeft allHeight halfWidth'>"
+					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth halfHeight'>"
+					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth halfHeight'>"
+					+imgArray[currentIndex++]+"</div></div>";
 	return divFrame;
 }
-function imgShow2(){
-	var divFrame = "<div><div class='floatLeft'></div><div class='floatRight'></div></div>";
+function imgShow2(imgArray){
+	var divFrame = "<div><div class='floatLeft allHeight halfWidth'>"
+					+imgArray[currentIndex++]+"</div><div class='floatRight allHeight halfWidth'>"
+					+imgArray[currentIndex++]+"</div></div>";
 	return divFrame;
 }
-function imgShow3(){
-	var divFrame = "<div><div></div></div>";
+function imgShow3(imgArray){
+	var divFrame = "<div><div class='allHeight allWidth'>"
+					+imgArray[currentIndex++]+"</div></div>";
 	return divFrame;
 }
-function imgShow4(){
-	var divFrame = "<div><div></div><div class='floatLeft'></div><div class='floatRight'></div></div>";
+function imgShow4(imgArray){
+	var divFrame = "<div><div class='allWidth'>"
+					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth'>"
+					+imgArray[currentIndex++]+"</div><div class='floatRight halfWidth'>"
+					+imgArray[currentIndex++]+"</div></div>";
 	return divFrame;
 }

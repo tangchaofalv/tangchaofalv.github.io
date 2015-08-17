@@ -225,10 +225,34 @@ footer div p {
 	width: 95%;
 }
 .gridLi>div{
-	width: 300px;
+	width: 100%;
 	height: 350px;
-	border-radius: 10px;
-	background-size:cover; 
+}
+
+
+.gridLi>div img{
+	width: 100%;
+	height: 100%;
+}
+div.floatLeft{
+	float: left;
+	width: 50%;
+}
+div.floatRight{
+	float: right;
+	width: 50%;
+}
+.allHeight{
+	height: 100%;
+}
+.allWidth{
+	width: 100%;
+}
+.halfHeight{
+	height: 50%;
+}
+.halfWidth{
+	width: 50%;
 }
 
 .navSlide{
