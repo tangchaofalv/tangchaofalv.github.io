@@ -1,61 +1,4 @@
 document.write("<script language='javascript' src='./lib/myDatas.js' ></script>");
-
-function pageInit(){
-	setInterval(function(){
-			var clock = new Date();
-			var strClock = clock.getHours()+":"+clock.getMinutes()+":"+clock.getSeconds();
-			$('#timespan').text(strClock);
-	},1000);
-
-	
-}
-
-function loadBGImgs(bgImgArray,url,imgs,callback){
-	for(var i in imgs){
-		var tmpImg = new Image();
-		tmpImg.src = url + imgs[i]['imgName'];
-		tmpImg.onload = function(){
-			bgImgArray.push(this);
-			if(bgImgArray.length==2){
-				callback(rollBg(bgImgArray));
-			}
-		}
-	}
-}
-
-function rollBg(bgImgArray){
-	var indexNum = 0;
-	$('#elem').fadeTo('slow', 0, function(){
-		 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
-			indexNum++;
-	}).fadeTo('slow', 1);
-	
-
-	var rollTrigger = setInterval(function(){
-		if(indexNum!=(bgImgArray.length)){
-			bgName = bgImgArray[indexNum].src;
-		}else{
-			indexNum = 0;
-			bgName = bgImgArray[indexNum].src;
-		}
-		indexNum++;
-		//console.log(bgName);
-		$('#elem').fadeTo('slow', 0, function(){
-		 	$(this).css('background-image', 'url('+bgName+')');
-		}).fadeTo('slow', 1);
-	},4000);
-
-	return rollTrigger;
-}
-
-function getDataById(dataId){
-	for(var i in data_myPhotos){
-		if(data_myPhotos[i]['id']==dataId){
-			return data_myPhotos[i];
-		}
-	} 
-}
-
 var dynamicLoading = {
 	'css':function(path,callback){
 		if(!path || path.length === 0){
@@ -89,26 +32,71 @@ var dynamicLoading = {
 		}
 	}
 };
+//-----------------------------------------------------------------------------------------------------------------
+/*获取数据*/
+function getDataById(dataId){
+	for(var i in data_myPhotos){
+		if(data_myPhotos[i]['id']==dataId){
+			return data_myPhotos[i];
+		}
+	} 
+}
+/*时钟*/
+function clockInit(){
+	setInterval(function(){
+			var clock = new Date();
+			var strClock = clock.getHours()+":"+clock.getMinutes()+":"+clock.getSeconds();
+			$('#timespan').text(strClock);
+	},1000);
+}
+/*设置首页背景图片*/
+function loadBGImgs(bgImgArray,url,imgs,callback){
+	for(var i in imgs){
+		var tmpImg = new Image();
+		tmpImg.src = url + imgs[i]['imgName'];
+		tmpImg.onload = function(){
+			bgImgArray.push(this);
+			if(bgImgArray.length==2){
+				callback(rollBg(bgImgArray));
+			}
+		}
+	}
+}
+/*轮播首页背景图片*/
+function rollBg(bgImgArray){
+	var indexNum = 0;
+	$('#elem').fadeTo('fast', 0, function(){
+		 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
+			indexNum++;
+	}).fadeTo('slow', 1);
+	
+	var rollTrigger = setInterval(function(){
+		if(indexNum!=(bgImgArray.length)){
+			bgName = bgImgArray[indexNum].src;
+		}else{
+			indexNum = 0;
+			bgName = bgImgArray[indexNum].src;
+		}
+		indexNum++;
+		//console.log(bgName);
+		$('#elem').fadeTo('slow', 0, function(){
+		 	$(this).css('background-image', 'url('+bgName+')');
+		}).fadeTo('slow', 1);
+	},4000);
+
+	return rollTrigger;
+}
 
 var myTrigger;
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
-		pageInit();
-		
-		// $({property:0}).animate({property:100},{
-		// 	duration:3000,
-		// 	step:function(){
-		// 		var percentage = Math.round(this.property);
-		// 		$('#loadingProcess').css('width',percentage+'%');
-		// 		if(percentage == 100){
-		// 			$('#loadingProcess').addClass("done");
-		// 		}
-		// 	}
-		// });
+		clockInit();
 
 		var bgImgArray = new Array();
 		var indexRollImgs = getDataById('indexRollImg');
-		loadBGImgs(bgImgArray,indexRollImgs['url'],indexRollImgs['photos'],test);
+		loadBGImgs(bgImgArray,indexRollImgs['url'],indexRollImgs['photos'],function(myParam){
+			myTrigger = myParam;
+		});
 
 		$("#gallery").click(function(){
 			clearInterval(myTrigger);
@@ -121,7 +109,6 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 					getGridList();
 				}
 			});
-			
 		});
 
 		$("#myLogo").click(function(){
@@ -134,9 +121,6 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	});
 });
 
-function test(myParam){
-	myTrigger = myParam;
-}
 /*显示图列*/
 function getGridList(){
 	var gridDiv = document.createElement("div");
@@ -160,31 +144,51 @@ function getGridList(){
 	$("#gridDiv").append(chooseSlideDiv);
 
 	$('#pre').click(function(){
-		 
+		 var liSize = $("li.gridLi")
+		 if(liSize.length>1 && pageIndex!=0){
+		 	var curLi = $("li.gridLi:eq("+pageIndex+")");
+			curLi.fadeOut('slow');
+			curLi.prev().fadeIn('slow');
+		 	pageIndex--;
+		 }else{
+		 	alert('已经是第一页了');
+		 }
 	});
 	$('#next').click(function(){
-		if(currentIndex==imgSize){
+		if(currentIndex==imgSize && (pageIndex==$("li.gridLi").length-1)){
 			console.log('img end:'+currentIndex+"   "+imgSize);
+			alert('没有更多内容了');
 			return;
 		};
-		getNewImgShow(imgArray);
+		var curLi = $("li.gridLi:eq("+pageIndex+")");
+		if(curLi.next().length>0){//已生成过的节点
+			pageIndex++;
+			curLi.fadeOut('slow');
+			curLi.next().fadeIn('slow');
+		}else{//需 生成节点
+			pageIndex++;
+			getNewImgShow(imgArray);//生成
+			curLi.fadeOut('slow');
+			curLi.next().fadeIn('slow');
+		}
 	});
+
 	getNewImgShow(imgArray);
+	curLi = $("li.gridLi:eq("+pageIndex+")");
+	curLi.fadeIn();
 
 }
 var imgSize = 0;
 var currentIndex = 0;
+var pageIndex = 0;
 
 function getNewImgShow(imgArray){
 	var showType = Math.floor(Math.random()*4);
 	if(imgSize%currentIndex==2){
-		console.log('22222');
 		$('#gridUl').append("<li class='gridLi'>"+imgShow2(imgArray)+"</li>");
 	}else if(imgSize%currentIndex==1){
-		console.log('11111');
 		$('#gridUl').append("<li class='gridLi'>"+imgShow3(imgArray)+"</li>");
 	}else{
-		console.log('random');
 		$('#gridUl').append("<li class='gridLi'>"+getShowImg[showType](imgArray,0)+"</li>");
 	}
 }
@@ -221,27 +225,29 @@ function createImgItem(eParentNode,imgObj){
 var getShowImg = [imgShow1,imgShow2,imgShow3,imgShow4];
 
 function imgShow1(imgArray){
-	var divFrame = "<div><div class='floatLeft allHeight halfWidth'>"
-					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth halfHeight'>"
-					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth halfHeight'>"
-					+imgArray[currentIndex++]+"</div></div>";
+	var divFrame = "<div>"+
+						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+					"</div>";
 	return divFrame;
 }
 function imgShow2(imgArray){
-	var divFrame = "<div><div class='floatLeft allHeight halfWidth'>"
-					+imgArray[currentIndex++]+"</div><div class='floatRight allHeight halfWidth'>"
-					+imgArray[currentIndex++]+"</div></div>";
+	var divFrame = "<div>"+
+						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatRight allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+					"</div>";
 	return divFrame;
 }
 function imgShow3(imgArray){
-	var divFrame = "<div><div class='allHeight allWidth'>"
-					+imgArray[currentIndex++]+"</div></div>";
+	var divFrame = "<div><div class='allHeight allWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div></div>";
 	return divFrame;
 }
 function imgShow4(imgArray){
-	var divFrame = "<div><div class='allWidth'>"
-					+imgArray[currentIndex++]+"</div><div class='floatLeft halfWidth'>"
-					+imgArray[currentIndex++]+"</div><div class='floatRight halfWidth'>"
-					+imgArray[currentIndex++]+"</div></div>";
+	var divFrame = "<div>"+
+						"<div class='allWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatLeft halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatRight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+					"</div>";
 	return divFrame;
 }
