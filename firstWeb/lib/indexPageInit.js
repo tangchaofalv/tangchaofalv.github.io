@@ -118,6 +118,10 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 			});
 		});
 
+		$("#clossImgShow").click(function(){
+			$("#showImgAllSizeDiv").fadeOut(200);
+		});
+
 	});
 });
 
@@ -191,6 +195,15 @@ function getNewImgShow(imgArray){
 	}else{
 		$('#gridUl').append("<li class='gridLi'>"+getShowImg[showType](imgArray,0)+"</li>");
 	}
+	$("li.gridLi:last img").each(function(){
+		$(this).next().text($(this).data('tip'));
+		$(this).click(function(){
+			var imgSrc = $(this).attr('src');
+			console.log(imgSrc);
+			$("#showImgAllSizeDiv>div>img").attr('src',imgSrc);
+			$("#showImgAllSizeDiv").fadeIn(200);
+		})
+	});
 }
 
 function loadGalleryImgs(imgArray,url,imgs,callback){
@@ -202,7 +215,7 @@ function loadGalleryImgs(imgArray,url,imgs,callback){
 }
 function loadGalleryImgs2(imgArray,url,imgs,callback){
 	for(var i in imgs){
-		var strImg = "<img src='"+url + imgs[i]['imgName']+"' />"
+		var strImg = "<img src='"+url + imgs[i]['imgName']+"' data-tip='"+imgs[i]['description']+"' />"
 		imgArray.push(strImg);
 	}
 }
@@ -226,28 +239,28 @@ var getShowImg = [imgShow1,imgShow2,imgShow3,imgShow4];
 
 function imgShow1(imgArray){
 	var divFrame = "<div>"+
-						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
-						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
-						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
+						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
+						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
 					"</div>";
 	return divFrame;
 }
 function imgShow2(imgArray){
 	var divFrame = "<div>"+
-						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
-						"<div class='floatRight allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='floatLeft allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
+						"<div class='floatRight allHeight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
 					"</div>";
 	return divFrame;
 }
 function imgShow3(imgArray){
-	var divFrame = "<div><div class='allHeight allWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div></div>";
+	var divFrame = "<div><div class='allHeight allWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div></div>";
 	return divFrame;
 }
 function imgShow4(imgArray){
 	var divFrame = "<div>"+
-						"<div class='allWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
-						"<div class='floatLeft halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
-						"<div class='floatRight halfWidth imgShowDiv'>"+imgArray[currentIndex++]+"<span>123<span></div>"+
+						"<div class='allWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
+						"<div class='floatLeft halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
+						"<div class='floatRight halfWidth halfHeight imgShowDiv'>"+imgArray[currentIndex++]+"<span>123</span></div>"+
 					"</div>";
 	return divFrame;
 }

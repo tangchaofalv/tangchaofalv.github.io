@@ -193,10 +193,9 @@ footer div p {
 	min-width: 800px;
 	height: 85%;
 	min-height: 500px;
-	background: SkyBlue;
 	margin: auto;
-	border-radius: 15px;
-	box-shadow: 1px 1px 3px 2px gray;
+	border-radius: 5px;
+	box-shadow: 0 0 3px 1px black;
 	padding: 10px;
 	-webkit-animation:rightToCenter 1s ;
 	position: absolute;
@@ -216,8 +215,8 @@ footer div p {
 
 .gridUl{
 	float: left;
-	height: 98%;
-	width: 85%;
+	height: 100%;
+	width: 100%;
 	overflow: auto;
 }
 .gridLi{
@@ -262,10 +261,12 @@ div.floatRight{
 	width: 49%;
 }
 
+/*图片上下导航*/
 .navSlide{
-	float: right;
-    margin: 0 10px 0 0;
+	position: absolute;
+    right: -40px;
 }
+/*上一项 图片集*/
 .pre{
 	width: 30px;
     height: 30px;
@@ -273,6 +274,7 @@ div.floatRight{
     border-radius: 50%;
     cursor: pointer;
 }
+/*下一项 图片集*/
 .next{
 	width: 30px;
     height: 100px;
@@ -281,30 +283,91 @@ div.floatRight{
     border-radius: 55px;
     cursor: pointer;
 }
+
+/*图片展示 小图显示层*/
+.imgShowDiv{
+	transition:box-shadow .2s;
+}
 .imgShowDiv:hover{
 	cursor: pointer;
 	box-shadow: 0 1px 5px 3px rgba(0,0,0,.7);
 }
+/*图片展示 小图文字提示层*/
 .imgShowDiv:hover span{
-	-webkit-animation:upSpan 1s ease  ;
-	animation:upSpan 1s ease  ;
-}
-
-.imgShowDiv{
-	
-	/*-webkit-transition:box-shadow .2s;*/
-	transition:box-shadow .2s;
+	transform:translateY(-70px);
 }
 .imgShowDiv>span{
-	background-color: yellow;
+	color: white;
+	background-color: rgba(0,0,0,.7);
 	display: block;
 	text-align: center;
+	height: 70px;
+	line-height: 70px;
+	transition:all 1s ease;
 }
-@-webkit-keyframes upSpan{
-	from{
-		transform:translateY(0);
-	}
-	to{
-		transform:translateY(-50px);
-	}
+
+/*图片点击后 大图显示层*/
+#showImgAllSizeDiv{
+	background-color: rgba(0,0,0,.5);
+	height: 100vh;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	z-index: 2;
+	display: none;
+}
+#showImgAllSizeDiv>div{
+	height: 100%;
+    width: 100%;
+}
+#showImgAllSizeDiv>div>img{
+	margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+}
+
+/*关闭按钮*/
+#clossImgShow{
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    cursor: pointer;
+    right: 0;
+    top: 0;
+}
+
+#clossImgShow:hover::before, #clossImgShow:hover::after {
+  background: #1ebcc5;
+}
+#clossImgShow::before, #clossImgShow::after {
+  content: '';
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  margin-top: -1px;
+  background: #fff;
+  transition:all .4s;
+}
+#clossImgShow::before {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg); 
+}
+#clossImgShow::after {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg); 
 }
