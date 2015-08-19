@@ -294,6 +294,10 @@ div.floatRight{
 }
 /*图片展示 小图文字提示层*/
 .imgShowDiv:hover span{
+	-moz-transform:translateY(-70px);
+	-ms-transform:translateY(-70px);
+	-o-transform:translateY(-70px);
+	-webkit-transform:translateY(-70px);
 	transform:translateY(-70px);
 }
 .imgShowDiv>span{
