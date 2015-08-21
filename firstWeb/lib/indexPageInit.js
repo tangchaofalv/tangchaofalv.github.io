@@ -1,4 +1,5 @@
 document.write("<script language='javascript' src='./lib/myDatas.js' ></script>");
+document.write("<script language='javascript' src='./lib/flipclock.js' ></script>");
 var dynamicLoading = {
 	'css':function(path,callback){
 		if(!path || path.length === 0){
@@ -88,9 +89,14 @@ function rollBg(bgImgArray){
 }
 
 var myTrigger;
+var clock;
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	$(function(){
-		clockInit();
+		
+		clock = $('.clock').FlipClock({
+			clockFace: 'TwelveHourClock'
+		});
+			
 
 		var bgImgArray = new Array();
 		var indexRollImgs = getDataById('indexRollImg');
@@ -139,12 +145,20 @@ function getGridList(){
 	var myGallery = getDataById('gallery');
 	var imgArray = new Array();
 	// loadGalleryImgs(imgArray,myGallery['url'],myGallery['photos']);
-	loadGalleryImgs2(imgArray,myGallery['url'],myGallery['photos']);
+	// loadGalleryImgs2(imgArray,myGallery['url'],myGallery['photos']);
+	loadGalleryImgs3(imgArray,myGallery['url'],myGallery['photos']);
 	imgSize = imgArray.length;
 
 	gridDiv.appendChild(gridUl);
 
-	var chooseSlideDiv = "<div class='navSlide'><div class='pre' id='pre'></div><div class='next' id='next'></div></div>";
+	var chooseSlideDiv ="<div class='navSlide'>"+
+							"<div class='pre' id='pre'>"+
+								"<span class='test'></span><span class='test'></span><span class='test'></span><span class='test'></span>"+
+							"</div>"+
+							"<div class='next' id='next'>"+
+								"<span class='test'></span><span class='test'></span><span class='test'></span><span class='test'></span>"+
+							"</div>"+
+						"</div>";
 	$("#gridDiv").append(chooseSlideDiv);
 
 	$('#pre').click(function(){
@@ -195,11 +209,21 @@ function getNewImgShow(imgArray){
 	}else{
 		$('#gridUl').append("<li class='gridLi'>"+getShowImg[showType](imgArray,0)+"</li>");
 	}
-	$("li.gridLi:last img").each(function(){
+	/*$("li.gridLi:last img").each(function(){
 		$(this).next().text($(this).data('tip'));
 		$(this).click(function(){
 			var imgSrc = $(this).attr('src');
 			console.log(imgSrc);
+			$("#showImgAllSizeDiv>div>img").attr('src',imgSrc);
+			$("#showImgAllSizeDiv").fadeIn(200);
+		})
+	});*/
+	$("li.gridLi:last div.imgShowDivItem").each(function(){
+		$(this).next().text($(this).data('tip'));
+		$(this).click(function(){
+			var imgSrc = $(this).css('backgroundImage');
+			imgSrc = imgSrc.slice(4,imgSrc.length-1);
+			// var imgSrc = $(this).attr('src');
 			$("#showImgAllSizeDiv>div>img").attr('src',imgSrc);
 			$("#showImgAllSizeDiv").fadeIn(200);
 		})
@@ -215,7 +239,13 @@ function loadGalleryImgs(imgArray,url,imgs,callback){
 }
 function loadGalleryImgs2(imgArray,url,imgs,callback){
 	for(var i in imgs){
-		var strImg = "<img src='"+url + imgs[i]['imgName']+"' data-tip='"+imgs[i]['description']+"' />"
+		var strImg = "<img src='"+url + imgs[i]['imgName']+"' data-tip='"+imgs[i]['description']+"' />";
+		imgArray.push(strImg);
+	}
+}
+function loadGalleryImgs3(imgArray,url,imgs,callback){
+	for(var i in imgs){
+		var strImg = "<div class='imgShowDivItem' style='background-image:url("+url + imgs[i]['imgName']+")' data-tip='"+imgs[i]['description']+"' ></div>";
 		imgArray.push(strImg);
 	}
 }
