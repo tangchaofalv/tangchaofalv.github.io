@@ -1,5 +1,4 @@
 document.write("<script language='javascript' src='./lib/myDatas.js' ></script>");
-document.write("<script language='javascript' src='./lib/flipclock.js' ></script>");
 var dynamicLoading = {
 	'css':function(path,callback){
 		if(!path || path.length === 0){
@@ -91,6 +90,8 @@ function rollBg(bgImgArray){
 var myTrigger;
 var clock;
 dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
+	dynamicLoading.js("./lib/flipclock.js");
+
 	$(function(){
 		
 		clock = $('.clock').FlipClock({
