@@ -130,7 +130,7 @@ div.main {
 	/*height: 720px;*/
 }
 
-#elem{
+#galleryElemDiv{
 	height: 100vh;
 	min-height: 400px;
 	background-color: black;
@@ -143,6 +143,32 @@ div.main {
 	position: relative;
 }
 
+#videoElemDiv{
+	height: 100vh;
+	min-height: 400px;
+	background-color: black;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin:0 auto; 
+	width:100%;
+	min-width:100px;
+	position: relative;
+	display: none;
+}
+#aboutElemDiv{
+	height: 100vh;
+	min-height: 400px;
+	background-color: black;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	margin:0 auto; 
+	width:100%;
+	min-width:100px;
+	position: relative;
+	display: none;
+}
 
 /*底部*/
 footer div {
@@ -188,7 +214,7 @@ footer {
 
 }
 
-.gridDiv{
+.galleryGridDiv{
 	width: 80%;
 	min-width: 800px;
 	height: 85%;
@@ -405,9 +431,182 @@ div.floatRight{
   transform: rotate(-45deg); 
 }
 
-
 div.imgShowDivItem{
 	width: 100%;
     height: 100%;
     background-size: cover;
+}
+
+.tabs{
+	position: relative;
+	margin: auto;
+	min-width: 750px;
+	width: 70%;
+	height: 100%;
+	top: 70px;
+    left: 0;
+    right: 0;
+}
+.tabs input{
+	position: absolute;
+	z-index: 100;
+	width: 120px;
+	height: 40px;
+	left: 0px;
+	top:0px;
+	opacity: 0;
+	cursor: pointer;
+}
+.tabs input#tab-2{
+	left: 120px;
+}
+.tabs label {
+	background: #5ba4a4;
+	background: -moz-linear-gradient(top, #5ba4a4 0%, #4e8c8a 100%);
+	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#5ba4a4), color-stop(100%,#4e8c8a));*/
+	background: -webkit-linear-gradient(top, Skyblue 0%,Steelblue 100%);
+	background: -o-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	background: -ms-linear-gradient(top, #5ba4a4 0%,#4e8c8a 100%);
+	background: linear-gradient(top, Skyblue 0%,Steelblue 100%);
+	font-size: 15px;
+	line-height: 40px;
+	height: 40px;
+	position: relative;
+	padding: 0 20px;
+    float: left;
+	display: block;
+	width: 80px;
+	color: #385c5b;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+	text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+    border-radius: 3px 3px 0 0;
+    box-shadow: 2px 0 2px rgba(0,0,0,0.1), -2px 0 2px rgba(0,0,0,0.1);
+}
+.tabs label:after {
+    content: '';
+	background: #fff;
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	display: block;
+}
+
+.tabs input:hover + label {
+	/*background: #5ba4a4;*/
+	background: Skyblue;
+}
+
+.tabs label:first-of-type {
+    z-index: 4;
+    box-shadow: 2px 0 2px rgba(0,0,0,0.1);
+}
+
+.tab-label-2 {
+    z-index: 3;
+}
+
+.tab-label-3 {
+    z-index: 2;
+}
+
+.tab-label-4 {
+    z-index: 1;
+}
+
+.tabs input:checked + label {
+    background: #fff;
+	z-index: 6;
+}
+
+.clear-shadow {
+	clear: both;
+}
+
+.content {
+    background: #fff;
+	position: relative;
+    width: 100%;
+	min-height: 370px;
+	height: 80%;
+	z-index: 5;
+    box-shadow: 0 -2px 3px -2px rgba(0,0,0,0.2), 0 2px 2px rgba(0,0,0,0.1);
+    border-radius: 0 3px 3px 3px;
+}
+
+.content div {
+    position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	padding: 10px 40px;
+	width: 100%;
+	max-width: 850px;
+	height: 100%;
+	z-index: 1;
+    opacity: 0;
+
+    -webkit-transition: opacity linear 0.1s;
+    -moz-transition: opacity linear 0.1s;
+    -o-transition: opacity linear 0.1s;
+    -ms-transition: opacity linear 0.1s;
+    transition: opacity linear 0.1s;
+}
+
+.tabs input.tab-selector-1:checked ~ .content .content-1,
+.tabs input.tab-selector-2:checked ~ .content .content-2,
+.tabs input.tab-selector-3:checked ~ .content .content-3,
+.tabs input.tab-selector-4:checked ~ .content .content-4 {
+	z-index: 100;
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+
+    -webkit-transition: opacity ease-out 0.2s 0.1s;
+    -moz-transition: opacity ease-out 0.2s 0.1s;
+    -o-transition: opacity ease-out 0.2s 0.1s;
+    -ms-transition: opacity ease-out 0.2s 0.1s;
+    transition: opacity ease-out 0.2s 0.1s;
+}
+
+.aboutLine{
+	border-right: 5px solid Skyblue;
+    height: 100%;
+    width: 200px;
+    position: absolute;
+}
+.aboutContent{
+	width: 100%;
+	padding-left: 240px;
+	position: relative;
+	min-height: 50px;
+}
+#aboutContentDiv{
+	top: 70px;
+    position: absolute;
+    width: 700px;
+    height: 500px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 2px solid Skyblue;
+    border-radius: 5px;
+}
+.aboutContentMonth{
+	width: 200px;
+    height: 60px;
+    line-height: 31px;
+    font-size: 16px;
+    text-align: right;
+    padding-right: 24px;
+    position: absolute;
+    left: 0px;
+}
+.aboutContentContent{
+	width: 100%;
 }

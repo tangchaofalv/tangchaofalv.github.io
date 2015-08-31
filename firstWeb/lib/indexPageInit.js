@@ -65,7 +65,7 @@ function loadBGImgs(bgImgArray,url,imgs,callback){
 /*轮播首页背景图片*/
 function rollBg(bgImgArray){
 	var indexNum = 0;
-	$('#elem').fadeTo('fast', 0, function(){
+	$('#galleryElemDiv').fadeTo('fast', 0, function(){
 		 	$(this).css('background-image', 'url('+bgImgArray[indexNum].src+')');
 			indexNum++;
 	}).fadeTo('slow', 1);
@@ -79,7 +79,7 @@ function rollBg(bgImgArray){
 		}
 		indexNum++;
 		//console.log(bgName);
-		$('#elem').fadeTo('slow', 0, function(){
+		$('#galleryElemDiv').fadeTo('slow', 0, function(){
 		 	$(this).css('background-image', 'url('+bgName+')');
 		}).fadeTo('slow', 1);
 	},4000);
@@ -107,20 +107,49 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 
 		$("#gallery").click(function(){
 			clearInterval(myTrigger);
-			$("#elem").fadeTo('fast',0,function(){
+			$("#videoElemDiv").css("display","none");
+			$("#galleryElemDiv").fadeTo('fast',0,function(){
 				$(this).css("background-image","linear-gradient(to top left,white,black)");
 			}).fadeTo('slow',1,function(){
-				if($("#gridDiv").length>0){
-					$("#gridDiv").css("display","block");
+				if($("#galleryGridDiv").length>0){
+					$("#galleryGridDiv").css("display","block");
 				}else{
 					getGridList();
 				}
 			});
 		});
 
+		$("#video").click(function(){
+			clearInterval(myTrigger);
+			$("#galleryElemDiv").fadeOut('fast',function(){});
+
+			$("#videoElemDiv").fadeTo('fast',0,function(){
+				$(this).css("background-image","linear-gradient(to top left,white,black)");
+			}).fadeTo('slow',1,function(){
+				
+			});
+
+		});
+
+		$("#about").click(function(){
+			clearInterval(myTrigger);
+			$("#galleryElemDiv").fadeOut('fast',function(){});
+			$("#aboutElemDiv").fadeTo('fast',0,function(){
+				$(this).css("background-image","linear-gradient(to top left,white,black)");
+			}).fadeTo('slow',1,function(){
+				if($("#aboutContentDiv").length>0){
+					$("#aboutContentDiv").css("display","block");
+				}else{
+					getAboutView();
+				}
+			});
+
+		});
+
 		$("#myLogo").click(function(){
 			clearInterval(myTrigger);
-			$("#gridDiv").fadeOut('fast',function(){
+			$("#videoElemDiv").css("display","none");
+			$("#galleryGridDiv").fadeOut('fast',function(){
 				myTrigger = rollBg(bgImgArray);
 			});
 		});
@@ -132,12 +161,44 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 	});
 });
 
+/*显示 关于*/
+function getAboutView(){
+	var strHtml = "<div id='aboutContentDiv'>"+
+				  "</div>";
+	$("#aboutElemDiv").append(strHtml);
+
+	var line = "<div class='aboutLine'></div>";
+	$("#aboutContentDiv").append(line);
+
+	var content = "<div class='aboutContent'>"+
+				  	"<div class='aboutContentMonth'>2015-08-31</div>"+
+				  	"<div class='aboutContentContent'>2015-08-31 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-30</div>"+
+				  	"<div class='aboutContentContent'>2015-08-30 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-29</div>"+
+				  	"<div class='aboutContentContent'>2015-08-29 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-28</div>"+
+				  	"<div class='aboutContentContent'>2015-08-28 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-27</div>"+
+				  	"<div class='aboutContentContent'>2015-08-27 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-26</div>"+
+				  	"<div class='aboutContentContent'>2015-08-26 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-25</div>"+
+				  	"<div class='aboutContentContent'>2015-08-25 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-24</div>"+
+				  	"<div class='aboutContentContent'>2015-08-24 内容</div>"+
+				  	"<div class='aboutContentMonth'>2015-08-23</div>"+
+				  	"<div class='aboutContentContent'>2015-08-23 内容</div>"+
+				  "</div>";
+	$("#aboutContentDiv").append(content);
+}
+
 /*显示图列*/
 function getGridList(){
-	var gridDiv = document.createElement("div");
-	gridDiv.className = "gridDiv clearfix";
-	gridDiv.id = "gridDiv";
-	document.getElementById("elem").appendChild(gridDiv);
+	var galleryGridDiv = document.createElement("div");
+	galleryGridDiv.className = "galleryGridDiv clearfix";
+	galleryGridDiv.id = "galleryGridDiv";
+	document.getElementById("galleryElemDiv").appendChild(galleryGridDiv);
 
 	var gridUl = document.createElement("ul");
 	gridUl.className = 'gridUl';
@@ -150,7 +211,7 @@ function getGridList(){
 	loadGalleryImgs3(imgArray,myGallery['url'],myGallery['photos']);
 	imgSize = imgArray.length;
 
-	gridDiv.appendChild(gridUl);
+	galleryGridDiv.appendChild(gridUl);
 
 	var chooseSlideDiv ="<div class='navSlide'>"+
 							"<div class='pre' id='pre'>"+
@@ -160,7 +221,7 @@ function getGridList(){
 								"<span class='test'></span><span class='test'></span><span class='test'></span><span class='test'></span>"+
 							"</div>"+
 						"</div>";
-	$("#gridDiv").append(chooseSlideDiv);
+	$("#galleryGridDiv").append(chooseSlideDiv);
 
 	$('#pre').click(function(){
 		 var liSize = $("li.gridLi")
