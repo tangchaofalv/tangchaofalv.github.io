@@ -573,19 +573,6 @@ div.imgShowDivItem{
     -ms-transition: opacity ease-out 0.2s 0.1s;
     transition: opacity ease-out 0.2s 0.1s;
 }
-
-.aboutLine{
-	border-right: 5px solid Skyblue;
-    height: 100%;
-    width: 200px;
-    position: absolute;
-}
-.aboutContent{
-	width: 100%;
-	padding-left: 240px;
-	position: relative;
-	min-height: 50px;
-}
 #aboutContentDiv{
 	top: 70px;
     position: absolute;
@@ -596,6 +583,22 @@ div.imgShowDivItem{
     margin: auto;
     border: 2px solid Skyblue;
     border-radius: 5px;
+    background-color: Whitesmoke;
+}
+.aboutLine{
+	border-right: 4px solid Skyblue;
+    height: 100%;
+    width: 210px;
+    position: absolute;
+}
+.aboutContent{
+	
+}
+.aboutContentItem{
+	width: 100%;
+	padding-left: 240px;
+	position: relative;
+	min-height: 50px;
 }
 .aboutContentMonth{
 	width: 200px;
@@ -606,7 +609,26 @@ div.imgShowDivItem{
     padding-right: 24px;
     position: absolute;
     left: 0px;
+    color: Skyblue;
+    font-weight: bold;
 }
 .aboutContentContent{
 	width: 100%;
 }
+.abs{
+	width: 12px;
+    height: 12px;
+    background: Skyblue;
+    display: block;
+    top: 10px;
+    right: 6px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    position: absolute;
+}
+
+
+
+

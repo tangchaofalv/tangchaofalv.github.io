@@ -34,3 +34,47 @@ var data_myPhotos = [
 		]
 	}
 ];
+/*关于*/
+var data_about = [
+	{
+		'id':'aboutDatas',
+		'dataList':[
+			{"time":"2015-09","content":""},
+			{"time":"2015-08","content":""},
+			{"time":"2015-07","content":""},
+			{"time":"2015-06","content":""},
+			{"time":"2015-05","content":""},
+			{"time":"2015-04","content":""},
+			{"time":"2015-03","content":""},
+			{"time":"2015-02","content":""},
+			{"time":"2015-01","content":""},
+			{"time":"2014-12","content":""},
+			{"time":"2014-11","content":""},
+			{"time":"2014-10","content":""},
+			{"time":"2014-09","content":""},
+			{"time":"2014-08","content":"与Monica一起 玩转大西南"},
+			{"time":"2014-07","content":"组队 白雪公主和七个小矮人 骑行川藏线"},
+			{"time":"2014-06","content":"特训一月 锻炼身体"},
+			{"time":"2014-05","content":""},
+			{"time":"2014-04","content":""},
+			{"time":"2014-03","content":""},
+			{"time":"2014-02","content":""},
+			{"time":"2014-01","content":""},
+			{"time":"2013-12","content":""},
+			{"time":"2013-11","content":""},
+			{"time":"2013-10","content":""},
+			{"time":"2013-09","content":""},
+			{"time":"2013-08","content":""},
+			{"time":"2013-07","content":""},
+			{"time":"2013-06","content":""},
+			{"time":"2013-05","content":""},
+			{"time":"2013-04","content":""},
+			{"time":"2013-03","content":""},
+			{"time":"2013-02","content":""},
+			{"time":"2013-01","content":""},
+			{"time":"2012-12","content":""},
+			{"time":"2012-11","content":""},
+			{"time":"2012-10","content":""}
+		]
+	}
+];

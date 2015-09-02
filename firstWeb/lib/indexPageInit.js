@@ -34,10 +34,10 @@ var dynamicLoading = {
 };
 //-----------------------------------------------------------------------------------------------------------------
 /*获取数据*/
-function getDataById(dataId){
-	for(var i in data_myPhotos){
-		if(data_myPhotos[i]['id']==dataId){
-			return data_myPhotos[i];
+function getDataById(dataId,param_data){
+	for(var i in param_data){
+		if(param_data[i]['id']==dataId){
+			return param_data[i];
 		}
 	} 
 }
@@ -100,7 +100,7 @@ dynamicLoading.js("./lib/jquery-2.1.4.min.js",function(){
 			
 
 		var bgImgArray = new Array();
-		var indexRollImgs = getDataById('indexRollImg');
+		var indexRollImgs = getDataById('indexRollImg',data_myPhotos);
 		loadBGImgs(bgImgArray,indexRollImgs['url'],indexRollImgs['photos'],function(myParam){
 			myTrigger = myParam;
 		});
@@ -170,25 +170,38 @@ function getAboutView(){
 	var line = "<div class='aboutLine'></div>";
 	$("#aboutContentDiv").append(line);
 
+	var aboutDatas = getDataById("aboutDatas",data_about);
+	aboutDatas = aboutDatas['dataList'];
+
 	var content = "<div class='aboutContent'>"+
-				  	"<div class='aboutContentMonth'>2015-08-31</div>"+
-				  	"<div class='aboutContentContent'>2015-08-31 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-30</div>"+
-				  	"<div class='aboutContentContent'>2015-08-30 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-29</div>"+
-				  	"<div class='aboutContentContent'>2015-08-29 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-28</div>"+
-				  	"<div class='aboutContentContent'>2015-08-28 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-27</div>"+
-				  	"<div class='aboutContentContent'>2015-08-27 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-26</div>"+
-				  	"<div class='aboutContentContent'>2015-08-26 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-25</div>"+
-				  	"<div class='aboutContentContent'>2015-08-25 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-24</div>"+
-				  	"<div class='aboutContentContent'>2015-08-24 内容</div>"+
-				  	"<div class='aboutContentMonth'>2015-08-23</div>"+
-				  	"<div class='aboutContentContent'>2015-08-23 内容</div>"+
+						"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-31<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-31 内容</div>"+
+						"</div>"+
+					  	"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-30<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-30 内容</div>"+
+						"</div>"+
+					  	"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-29<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-29 内容</div>"+
+						"</div>"+
+						"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-28<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-28 内容</div>"+
+						"</div>"+
+						"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-27<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-27 内容</div>"+
+						"</div>"+
+						"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-26<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-26 内容</div>"+
+						"</div>"+
+						"<div class='aboutContentItem'>"+
+							"<div class='aboutContentMonth'>2015-08-25<span class='abs'></span></div>"+
+					  		"<div class='aboutContentContent'>2015-08-25 内容</div>"+
+						"</div>"+
 				  "</div>";
 	$("#aboutContentDiv").append(content);
 }
@@ -204,7 +217,7 @@ function getGridList(){
 	gridUl.className = 'gridUl';
 	gridUl.id = 'gridUl';
 
-	var myGallery = getDataById('gallery');
+	var myGallery = getDataById('gallery',data_myPhotos);
 	var imgArray = new Array();
 	// loadGalleryImgs(imgArray,myGallery['url'],myGallery['photos']);
 	// loadGalleryImgs2(imgArray,myGallery['url'],myGallery['photos']);
