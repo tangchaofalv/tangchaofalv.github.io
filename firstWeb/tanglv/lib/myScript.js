@@ -35,13 +35,23 @@ function createChildPanel(panelid){
 	var gallery_url = gallery_obj['url'];
 	var gallery_photos = gallery_obj['photos'];
 
+	var testArray = layoutGalleryList(gallery_photos,gallery_url);
+
 	var ttt = "";
+	for(var i in testArray){
+		var whValue = "height:250px;width:";
+		// var rate = (testArray[i]['width']/testArray[i]['height']).toFixed(1);
+		whValue+=testArray[i]['width']+"px;";
+		ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+testArray[i]['imgName']+");"+whValue+"'></div> "
+	}
+
+	/*var ttt = "";
 	for(var i in gallery_photos){
 		var whValue = "height:200px;width:";
 		var rate = (gallery_photos[i]['width']/gallery_photos[i]['height']).toFixed(1);
 		whValue+=200*rate+"px;";
 		ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+gallery_photos[i]['imgName']+");"+whValue+"'></div> "
-	}
+	}*/
 
 	var childHtml = "<div class='outPanel'>"+ttt+"</div>";
 	var html = "<div id='"+panelid+"' class='childPanel'>"+childHtml+"</div>";
@@ -51,39 +61,51 @@ function createChildPanel(panelid){
 function layoutGalleryList(gallery_photos,gallery_url){
 	var returnArray = new Array();
 	var positionCur = 0,currentCur = 0,picWidth = 0,count = 0;
-	for(var i in gallery_photos){
-		var whValue = "height:200px;width:";
+	for(var i=0;i<gallery_photos.length;i++){
 		var rate = (gallery_photos[i]['width']/gallery_photos[i]['height']).toFixed(1);
 		gallery_photos[i]['rate'] = rate;
+
 		var tmpWidth = 200*rate; 
-		whValue+=tmpWidth+"px;";
 		picWidth+=tmpWidth;
 		if(picWidth>990){
-			resetGalleryImg(returnArray,positionCur,i-1);
+			resetGalleryImg(returnArray,positionCur,i-1,count);
 			positionCur = i;
 			currentCur = i;
+			picWidth = 0;
+			count = 0;
+			i--;
+			continue;
 		}else if(picWidth==990){
 			returnArray.push(gallery_photos[i]);
 			positionCur = i+1;
 			count = 0;
+			picWidth = 0;
+			continue;
 		}else{
 			returnArray.push(gallery_photos[i]);
 			count++;
 		}
+		if(i==gallery_photos.length-1){
+			resetGalleryImg(returnArray,positionCur,i,count);
+		}
 		picWidth+=4;
 	}
+	return returnArray;
 }
 
 function resetGalleryImg(returnArray,start,end,count){
+	// debugger;
 	var total = 0;
 	var totalWidth = 990-4*count;
 	for(var i=start;i<=end;i++){
-		total+=returnArray[i]['rate'];
+		console.log(returnArray[i]);
+		total+=parseFloat(returnArray[i]['rate']);
 	}
 	for(var i=start;i<=end;i++){
 		var imgObj = returnArray[i];
-		var tmpWidth = totalWidth/total*imgObj['rate'];
+		var tmpWidth = (totalWidth/total*imgObj['rate']).toFixed(0);
 		returnArray[i]['width'] = tmpWidth;
+		// returnArray[i]['height'] = '250';
 	}
 
 }
