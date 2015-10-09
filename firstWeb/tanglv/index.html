@@ -12,6 +12,9 @@
 		list-style: none;
 		text-decoration: none;
 	}
+	body{
+		background-color: black;
+	}
 	header,footer{
 		background-color: black;
 		color: white;
@@ -20,15 +23,33 @@
 		position: absolute;
 		width: 100%;
 		min-width: 800px;
+		background: rgba(0,0,0,.7);
+		z-index: 1;
 	}
 	.main{
-		background-color: Skyblue;
+		/*background:black url(./images/1.jpg);*/
+		background-color: black;
+		background-size: cover;
 		height: 100vh;
+		min-height: 600px;
 		min-width: 800px;
+	}
+	.mainChildPanel{
+		background-color: Skyblue;
+		width: 100%;
+	}
+	.childPanel{
+		height: 100%;
+		padding-top: 66px;
+	    width: 100%;
+	    max-width: 1000px;
+	    min-width: 800px;
+	    margin: auto;
 	}
 	.logo img{
 		height: 60px;
 		width: 148px;
+		cursor: pointer;
 	}
 	nav{
 		width: 100%;
@@ -106,6 +127,16 @@
 			opacity: 0
 		}
 	}
+	.galleryImgDiv{
+		background-repeat: no-repeat;
+	    background-size: cover!important;
+	    display: inline-block;
+	}
+	.outPanel{
+		background-color: white;
+	    padding: 5px;
+	    box-shadow: 0px 0px 20px 2px;
+	}
 	</style>
 </head>
 <body>
@@ -116,16 +147,22 @@
 			</div>
 			<div class="navGuideDiv">
 				<ul class="navGuideUl">
-					<li><a href="">gallery</a></li>
-					<li><a href="">video</a></li>
-					<li><a href="">about</a></li>
+					<li><a href="javascript:void(0)" id="gallery">gallery</a></li>
+					<li><a href="javascript:void(0)" id="video">video</a></li>
+					<li><a href="javascript:void(0)" id="about">about</a></li>
 				</ul>
 			</div>
 		</nav>
 	</header>
-	<div class="main"></div>
+	<div class="main">
+		<div class='mainChildPanel'></div>
+	</div>
 	<footer>
 		this is foot
 	</footer>
 </body>
+<script type="text/javascript" src="./lib/jquery-2.1.4.min.js"></script>
+<script type="text/javascript" src="./lib/myDatas.js"></script>
+<script type="text/javascript" src="./lib/myScript.js"></script>
+
 </html>
