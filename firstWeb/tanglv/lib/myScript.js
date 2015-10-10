@@ -28,6 +28,11 @@ $(function(){
 		$(currentTap).css("display","none");
 		indexBGImgTrigger = indexBGImg_Roll(indexBGImgArray);
 	});
+
+	$("#closeFullImg").click(function(){
+		$("#fullImgOutPanel").css("display","none");
+		$(document.body).css("overflow","auto");
+	});
 });
 
 function createChildPanel(panelid){
@@ -35,14 +40,23 @@ function createChildPanel(panelid){
 	var gallery_url = gallery_obj['url'];
 	var gallery_photos = gallery_obj['photos'];
 
-	var testArray = layoutGalleryList(gallery_photos,gallery_url);
+	var sortGalleryArray = layoutGalleryList(gallery_photos,gallery_url);
 
 	var ttt = "";
-	for(var i in testArray){
+	for(var i in sortGalleryArray){
 		var whValue = "height:250px;width:";
-		// var rate = (testArray[i]['width']/testArray[i]['height']).toFixed(1);
-		whValue+=testArray[i]['width']+"px;";
-		ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+testArray[i]['imgName']+");"+whValue+"'></div> "
+		// var rate = (sortGalleryArray[i]['width']/sortGalleryArray[i]['height']).toFixed(1);
+		whValue+=sortGalleryArray[i]['width']+"px;";
+
+		/*div背景版本*/
+		/*ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+sortGalleryArray[i]['imgName']+");"+whValue+"'>";*/
+
+		ttt+="<div class='galleryImgDiv' style='background:black;"+whValue+"'><img class='lazy' data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"'>";
+
+		if(!!sortGalleryArray[i]['description']){
+			ttt+="<span>"+sortGalleryArray[i]['description']+"</span>";
+		}
+		ttt+="</div> ";
 	}
 
 	/*var ttt = "";
@@ -56,6 +70,19 @@ function createChildPanel(panelid){
 	var childHtml = "<div class='outPanel'>"+ttt+"</div>";
 	var html = "<div id='"+panelid+"' class='childPanel'>"+childHtml+"</div>";
 	$(".mainChildPanel").append(html);
+
+	$(".galleryImgDiv").each(function(){
+		$(this).click(function(){
+			$("#fullImgOutPanel").css("top",document.body.scrollTop+"px");/*ie9 有问题*/
+			$(document.body).css("overflow","hidden");
+			$("#fullImgOutPanel").css("display","block");
+			var imgSrc = $(this).css('backgroundImage');
+			imgSrc = imgSrc.slice(4,imgSrc.length-1);
+			$("#fullImg").attr("src",imgSrc);
+		});
+	});
+
+	$("img.lazy").lazyload({effect: "fadeIn"});
 }
 /*图册排版*/
 function layoutGalleryList(gallery_photos,gallery_url){
@@ -94,11 +121,9 @@ function layoutGalleryList(gallery_photos,gallery_url){
 }
 
 function resetGalleryImg(returnArray,start,end,count){
-	// debugger;
 	var total = 0;
 	var totalWidth = 990-4*count;
 	for(var i=start;i<=end;i++){
-		console.log(returnArray[i]);
 		total+=parseFloat(returnArray[i]['rate']);
 	}
 	for(var i=start;i<=end;i++){
