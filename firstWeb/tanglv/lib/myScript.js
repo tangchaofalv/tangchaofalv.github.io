@@ -51,8 +51,10 @@ function createChildPanel(panelid){
 		/*div背景版本*/
 		/*ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+sortGalleryArray[i]['imgName']+");"+whValue+"'>";*/
 
+		ttt+="<div class='galleryImgDiv' style='background:white;"+whValue+"'  data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"' data-load='false'>";
+/*
 		ttt+="<div class='galleryImgDiv' style='background:black;"+whValue+"'><img class='lazy' data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"'>";
-
+*/
 		if(!!sortGalleryArray[i]['description']){
 			ttt+="<span>"+sortGalleryArray[i]['description']+"</span>";
 		}
@@ -82,8 +84,23 @@ function createChildPanel(panelid){
 		});
 	});
 
-	$("img.lazy").lazyload({effect: "fadeIn"});
+	loadImg();
+	$(window).scroll(function(){
+		loadImg();
+	});
+	/*$("img.lazy").lazyload({effect: "fadeIn"});*/
 }
+
+function loadImg(){
+	var tmpHeight = $(window).height()+$(window).scrollTop();
+	$(".galleryImgDiv[data-load=false]").each(function(){
+		if($(this).offset().top<=tmpHeight){
+			$(this).css("background-image","url("+$(this).attr("data-original")+")");
+			$(this).attr("data-load","true");
+		}
+	});
+}
+
 /*图册排版*/
 function layoutGalleryList(gallery_photos,gallery_url){
 	var returnArray = new Array();
