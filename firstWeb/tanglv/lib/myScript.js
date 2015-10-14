@@ -34,7 +34,7 @@ $(function(){
 		$(document.body).css("overflow","auto");
 	});
 });
-
+/*创建分类下的子面板*/
 function createChildPanel(panelid){
 	var gallery_obj = getPhotos('gallery');
 	var gallery_url = gallery_obj['url'];
@@ -42,34 +42,21 @@ function createChildPanel(panelid){
 
 	var sortGalleryArray = layoutGalleryList(gallery_photos,gallery_url);
 
-	var ttt = "";
+	var imgHtml = "";
 	for(var i in sortGalleryArray){
-		var whValue = "height:250px;width:";
-		// var rate = (sortGalleryArray[i]['width']/sortGalleryArray[i]['height']).toFixed(1);
+		var whValue = "height:"+sortGalleryArray[i]['height']+"px;width:";
 		whValue+=sortGalleryArray[i]['width']+"px;";
 
-		/*div背景版本*/
-		/*ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+sortGalleryArray[i]['imgName']+");"+whValue+"'>";*/
+		imgHtml+="<div class='galleryImgDiv' style='background:white;"+whValue+"' "+ 
+				   "data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"' data-load='false'>";
 
-		ttt+="<div class='galleryImgDiv' style='background:white;"+whValue+"'  data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"' data-load='false'>";
-/*
-		ttt+="<div class='galleryImgDiv' style='background:black;"+whValue+"'><img class='lazy' data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"'>";
-*/
-		if(!!sortGalleryArray[i]['description']){
-			ttt+="<span>"+sortGalleryArray[i]['description']+"</span>";
+		if(!!sortGalleryArray[i]['title']){
+			imgHtml+="<span>"+sortGalleryArray[i]['title']+"</span>";
 		}
-		ttt+="</div> ";
+		imgHtml+="</div> ";
 	}
 
-	/*var ttt = "";
-	for(var i in gallery_photos){
-		var whValue = "height:200px;width:";
-		var rate = (gallery_photos[i]['width']/gallery_photos[i]['height']).toFixed(1);
-		whValue+=200*rate+"px;";
-		ttt+="<div class='galleryImgDiv' style='background:black url("+gallery_url+gallery_photos[i]['imgName']+");"+whValue+"'></div> "
-	}*/
-
-	var childHtml = "<div class='outPanel'>"+ttt+"</div>";
+	var childHtml = "<div class='outPanel'>"+imgHtml+"</div>";
 	var html = "<div id='"+panelid+"' class='childPanel'>"+childHtml+"</div>";
 	$(".mainChildPanel").append(html);
 
@@ -80,7 +67,14 @@ function createChildPanel(panelid){
 			$("#fullImgOutPanel").css("display","block");
 			var imgSrc = $(this).css('backgroundImage');
 			imgSrc = imgSrc.slice(4,imgSrc.length-1);
-			$("#fullImg").attr("src",imgSrc);
+			console.log(imgSrc);
+			console.log(imgSrc.lastIndexOf("/"));
+			var tmpSrc = imgSrc.substring(0,imgSrc.lastIndexOf("/")+1);
+			var tmpName = imgSrc.substring(imgSrc.lastIndexOf("/")+1,imgSrc.length);
+			console.log(tmpName);
+			var tmpDetailName = tmpName.substring(0,tmpName.indexOf("."))+"_detail.jpg";
+			console.log(tmpDetailName);
+			$("#fullImg").attr("src",tmpSrc+tmpDetailName);
 		});
 	});
 
@@ -143,11 +137,15 @@ function resetGalleryImg(returnArray,start,end,count){
 	for(var i=start;i<=end;i++){
 		total+=parseFloat(returnArray[i]['rate']);
 	}
+	var lineHeight;
 	for(var i=start;i<=end;i++){
 		var imgObj = returnArray[i];
 		var tmpWidth = (totalWidth/total*imgObj['rate']).toFixed(0);
 		returnArray[i]['width'] = tmpWidth;
-		// returnArray[i]['height'] = '250';
+		if(!lineHeight){
+			lineHeight = returnArray[i]['width']/imgObj['rate'];
+		}
+		returnArray[i]['height'] = lineHeight;
 	}
 
 }
