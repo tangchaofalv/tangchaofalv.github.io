@@ -1,4 +1,4 @@
-var indexBGImgTrigger,currentTap,indexBGImgArray = new Array();
+var indexBGImgTrigger,currentTap,indexBGImgArray = new Array(),dataMap = {};
 
 $(function(){
 	indexBGImg_Init(function(param){
@@ -44,11 +44,12 @@ function createChildPanel(panelid){
 
 	var imgHtml = "";
 	for(var i in sortGalleryArray){
+		dataMap[sortGalleryArray[i]['id']]=sortGalleryArray[i];
 		var whValue = "height:"+sortGalleryArray[i]['height']+"px;width:";
 		whValue+=sortGalleryArray[i]['width']+"px;";
 
-		imgHtml+="<div class='galleryImgDiv' style='background:white;"+whValue+"' "+ 
-				   "data-original='"+gallery_url+sortGalleryArray[i]['imgName']+"' data-load='false'>";
+		imgHtml+="<div class='galleryImgDiv' style='background:white;"+whValue+"' data-id='"+sortGalleryArray[i]['id']+"' "+ 
+				   "data-original='"+sortGalleryArray[i]['imgName']+"' data-load='false'>";
 
 		if(!!sortGalleryArray[i]['title']){
 			imgHtml+="<span>"+sortGalleryArray[i]['title']+"</span>";
@@ -65,7 +66,8 @@ function createChildPanel(panelid){
 			$("#fullImgOutPanel").css("top",document.body.scrollTop+"px");/*ie9 有问题*/
 			$(document.body).css("overflow","hidden");
 			$("#fullImgOutPanel").css("display","block");
-			var imgSrc = $(this).css('backgroundImage');
+
+			/*var imgSrc = $(this).css('backgroundImage');
 			imgSrc = imgSrc.slice(4,imgSrc.length-1);
 			console.log(imgSrc);
 			console.log(imgSrc.lastIndexOf("/"));
@@ -73,8 +75,9 @@ function createChildPanel(panelid){
 			var tmpName = imgSrc.substring(imgSrc.lastIndexOf("/")+1,imgSrc.length);
 			console.log(tmpName);
 			var tmpDetailName = tmpName.substring(0,tmpName.indexOf("."))+"_detail.jpg";
-			console.log(tmpDetailName);
-			$("#fullImg").attr("src",tmpSrc+tmpDetailName);
+			console.log(tmpDetailName);*/
+			var imgSrc = dataMap[$(this).attr("data-id")]['imgDetail'];
+			$("#fullImg").attr("src",imgSrc);
 		});
 	});
 
