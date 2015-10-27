@@ -3,6 +3,8 @@
 <head>
 	<meta charset="UTF-8">
 	<title>唐小律的空间</title>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/page.css">
 	<style>
 	*{
 		margin: 0;
@@ -205,17 +207,12 @@
 	    left: 0;
 	    right: 0;
 	}
-	.fullImgDivDetail{
-		float: right;
-		width: 320px;
-		height: 100%;
-		background-color: #222;
-	}
+	
 	/*关闭按钮*/
 	#closeFullImg{
 	    position: fixed;
-	    width: 60px;
-	    height: 60px;
+	    width: 40px;
+	    height: 40px;
 	    overflow: hidden;
 	    cursor: pointer;
 	    right: 0;
@@ -254,6 +251,18 @@
 		max-width: 100%;
 		max-height: 100%;
 	}
+	.imgtitle{
+		color: white;
+		padding: 5px;
+	}
+	.imgtitle + h3{
+		color: white;
+		font-weight: normal;
+		padding: 5px;
+	}
+	.testHover{
+		color: green;
+	}
 	</style>
 </head>
 <body>
@@ -276,9 +285,20 @@
 	</div>
 	<div id="fullImgOutPanel">
 		<div class="fullImgDivDetail">
-			<div style="text-align:right">
-				<span id="closeFullImg"></span>
+			<div>
+				<i id="iconHeart" class="fa fa-heart-o fa-2x"></i>
+				<i id="iconDownLoad" class="fa fa-cloud-download fa-2x"></i>
+				<i id="iconWeChat" class="fa fa-wechat fa-2x"></i>
+				<i id="iconWeibo" class="fa fa-weibo fa-2x"></i>
+				<i id="iconClose" class="fa fa-close fa-2x"></i>
+				<!-- <span id="closeFullImg"></span> -->
 			</div>
+			<h2 class="imgtitle">title</h2>
+			<h3>description</h3>
+			<div class="div_comment">
+				<textarea class="textArea_comment" ></textarea>
+				<i class="fa fa-commenting-o fa-2x"></i>
+			</div>				
 		</div>
 		<div class="fullImgDiv">
 			<div>

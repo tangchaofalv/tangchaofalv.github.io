@@ -1,0 +1,74 @@
+.redFont{
+	color: red;
+}
+.iconHeart{
+	color: red;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.iconDownLoad{
+	color: Skyblue;
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.iconWeChat{
+	color: rgb(120,220,75);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.iconWeibo{
+	color: rgb(230,22,45);
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.iconClose{
+	color: white;
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+}
+.fullImgDivDetail{
+	float: right;
+	width: 320px;
+	height: 100%;
+	background-color: #222;
+}
+.fullImgDivDetail>div{
+	height: 40px;
+	background-color: rgb(62,62,62);
+	box-shadow: 0 0 5px 0px;
+}
+.fullImgDivDetail i{
+	line-height: 40px;
+	height: 40px;
+	text-align: center;
+	vertical-align: middle;
+	width: 60px;
+	cursor: pointer;
+	transition:all .3s;
+	-ms-transition:all.3s;
+}
+.div_comment{
+	height: 100% !important;
+    padding: 10px;
+}
+.div_comment i{
+	height: initial !important;
+	width: initial !important;
+	line-height: normal !important;
+	vertical-align: top!important;
+    padding: 0px !important;
+    margin-left: 10px;
+}
+.textArea_comment{
+	width: 250px;
+	resize: none;
+    color: #525558;
+    border-radius: 3px;
+    font-size: 12px;
+    border: 1px solid #eeeff2;
+    position: relative;
+    padding: 10px 30px 10px 10px;
+    line-height: 1.4em;
+    min-height: 16px;
+    max-height: 75px;
+}
